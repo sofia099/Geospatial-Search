@@ -1,4 +1,6 @@
 # Geospatial-Search on Airbnb Data
+<img width="1237" alt="Screenshot 2023-12-05 at 4 07 09 AM" src="https://github.com/sofia099/Geospatial-Search/assets/59860423/e5155c17-142f-4f78-86e9-09044c8fae86">
+
 Geospatial search is an incredibly powerful tool for data exploration, analysis, and visualization. This project aims to showcase the power of geospatial search by providing an interactive and ***visual*** experience via a webpage. Users will be able to draw polygons, polylines, and place markers (points) on a map to run geospatial searches against those values. The following actions are supported:
 - Find Airbnb locations within multiple polygon
 - Find Airbnb locations within multiple polygon with holes
