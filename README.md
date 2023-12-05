@@ -135,11 +135,11 @@ Before running the .html file, check the following lines & update as needed:
 
 ## Step 6: Run the .html file and start drawing shapes!
 Now we're ready to play! The tools are color-coded to denote the geographic function being used:
-- Green polygons are equivalent to contain.
+- Green polygons are equivalent to contain (using `ST_CONTAINS`)
 - Red polygons are equivalent to not contain (aka holes).
-- Blue is used for distance.
+- Blue is used for distance (suing `ST_DISTANCE`).
 
-Draw a Green polygon (remember to click 'Finish' to close the shape). Draw a Red polygon inside the Green polygon to denote a hole. Draw a Blue polygon, line, or place a blue marker down to signify a point of distance. Below the map, enter the distance range in meters from that shape that you wish to search for Airbnb data. Click 'Search' to view the results:
+Draw a Green polygon (remember to click 'Finish' to close the shape). Draw a Red polygon inside the Green polygon to denote a hole. Draw a Blue polygon, line, or place a blue marker down to signify a point of distance. Below the map, enter the distance in meters from that shape that you wish to search for Airbnb data. Click 'Search' to view the results:
 
 <img width="1237" alt="Screenshot 2023-12-05 at 4 07 09 AM" src="https://github.com/sofia099/Geospatial-Search/assets/59860423/c1897182-9688-4553-b3c7-77ab05d8ec04">
 
