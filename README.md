@@ -8,10 +8,10 @@ Geospatial search is an incredibly powerful tool for data exploration, analysis,
 The interactive map is powered by [Leaflet](https://leafletjs.com/), an open-source JavaScript library for mobile-friendly interactive maps. The dataset used in this project is available for public download on [Inside Airbnb](http://insideairbnb.com/get-the-data/). I recommend hosting your dataset in [Rockset](https://rockset.com/) which is optimized for low-latency queries and has a built-in `geography` data type. You will need to create an account on Rockset to get an API key for this project. To create an account on Rockset go [here](https://rockset.com/create/).<br /><br />
 
 ## Step 1: Download Data
-[Inside Airbnb](http://insideairbnb.com/get-the-data/) hosts quarterly data over the last year by each region. In this example, I use the San Francisco `Detailed Listings data`. Download for free on their site. <br /><br />
+[Inside Airbnb](http://insideairbnb.com/get-the-data/) hosts quarterly data over the last year by each region. In this example, I use the San Francisco `Detailed Listings data`. Download the zip file for free on their site. <br /><br />
 
 ## Step 2: Upload Data to Rockset
-In order to execute fast Geospatial Search query over the dataset, we will need a low-latency database to host our collection. With a larger dataset, I recommend dropping the files in an AWS S3 bucket and then ingesting it into Rockset using these [docs](https://rockset.com/docs/amazon-s3/). If you are using the San Francisco dataset I shared above, you can ingest right away by following these steps:
+In order to execute fast Geospatial Search queries over the dataset, we will need a low-latency database to host our collection. If you are using the San Francisco dataset I shared above, you can ingest right away by following these steps:
   1. In the Rockset Console, go to the "Collections" tab and then select "Create a Collection"
   2. Scroll down and select "File Upload" then "Start"
   3. Upload the dataset. Be sure to select "CSV/TSV" for File Format, then click "Next"
@@ -42,10 +42,10 @@ In order to execute fast Geospatial Search query over the dataset, we will need 
 
 ## Step 3: Write & Save a Query Lambda
 To run a geospatial search, we'll utilize the following Rockset-native geography functions:
-- `ST_GEOGPOINT` Constructs a new point with the given longitude and latitude.
-- `ST_GEOGFROMTEXT` Converts a [well known text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) to a geography.
-- `ST_CONTAINS` Returns true if and only if `geography_b` is entirely contained within `geography_a.`
-- `ST_DISTANCE` Returns the distance, in meters, between the closest points in the two geographies.
+- `ST_GEOGPOINT(longitude, latitude)` Constructs a new point with the given longitude and latitude.
+- `ST_GEOGFROMTEXT(well_known_text)` Converts a [well known text](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) to a geography.
+- `ST_CONTAINS(geography_a, geography_b)` Returns true if and only if `geography_b` is entirely contained within `geography_a.`
+- `ST_DISTANCE(geography_a, geography_b)` Returns the distance, in meters, between the closest points in the two geographies.
 
 In the Query Editor in Rockset, save the following SQL query as a Query Lambda named `airbnbSearch` under the `airbnb` workspace:
 ```
@@ -114,22 +114,22 @@ Be sure to add the following parameters & default values:
 }
 ```
 
-In short, this query runs a spatial search to find Airbnb data points that are/aren't contained in denoted polygons and/or are within a certain distance from denoted shapes (could be points, lines, or polygons). It will return the **10** results at random. You can easily add additional metadata filtering in the `WHERE` clause and sorting by addin a `ORDER BY` clause.<br /><br />
+In short, this query runs a spatial search to find Airbnb data points that are contained in denoted polygons and/or are within a certain distance from denoted shapes (could be points, lines, or polygons). It will return **10** results at random. You can easily add additional metadata filtering in the `WHERE` clause and sort by adding a `ORDER BY` clause.<br /><br />
 
 ## Step 4: Create an API Key & Grab your Region
-Create an API key in Rockset in the [API Keys tab of the Console](https://console.rockset.com/apikeys). The region can be found in the dropdown menu at the top of the page. For more information, refer to [Rockset's API Reference](https://docs.rockset.com/documentation/reference/rest-api).<br /><br />
+Create an API key in the [API Keys tab of the Rockset Console](https://console.rockset.com/apikeys). The region can be found in the dropdown menu at the top of the page. For more information, refer to [Rockset's API Reference](https://docs.rockset.com/documentation/reference/rest-api).<br /><br />
 
 ## Step 5: Update `geospatial-search.html`
 Before running the .html file, check the following lines & update as needed:
-- line 89: `center: [37.7749, -122.4194],`
+- line 89: `center: [37.7749, -122.4194]`<br />
   These are coordinates to San Francisco. Update if using another location dataset
-- line 281: `const apiKey = "YOUR_ROCKSET_API_KEY";`
+- line 281: `const apiKey = "YOUR_ROCKSET_API_KEY";`<br />
   Update with your Rockset API Key from Step 4.
-- line 282: `const apiServer = "YOUR_ROCKSET_REGION_URL"`
+- line 282: `const apiServer = "YOUR_ROCKSET_REGION_URL"`<br />
   Update with your Rockset Region URL (ex: "https://api.usw2a1.rockset.com")
-- line 283: `const qlWorkspace = 'airbnb'`
+- line 283: `const qlWorkspace = 'airbnb'`<br />
   If you saved the Query Lambda from Step 3 in a different workspace, update here.
-- line 284: `const qlName = 'airbnbSearch'`
+- line 284: `const qlName = 'airbnbSearch'`<br />
   If you saved the Query Lambda from Step 3 under a different name, update here.
 <br /><br />
 
@@ -153,11 +153,11 @@ Draw a Green polygon (remember to click 'Finish' to close the shape). Draw a Red
 - Leaflet can be finicky when `allowIntersection` is set to `true` for polygons. Currently set to `false` for smoother user experience, but its important to note that polygon lines can **not** cross to ensure correct behavior.
 
 ### Leaflet Documentation:
-https://leafletjs.com/reference.html
+https://leafletjs.com/reference.html <br />
 https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html
 
 ### Rockset Documentation:
-https://docs.rockset.com/documentation/reference/data-types#geography
+https://docs.rockset.com/documentation/reference/data-types#geography <br />
 https://docs.rockset.com/documentation/reference/geographic-functions#st_intersects
 
 ### Interested in learning more?
