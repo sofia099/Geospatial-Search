@@ -1,13 +1,11 @@
 # Geospatial-Search on Airbnb Data
-Geospatial search is an incredibly powerful tool for data exploration, analysis, and visualization. This project aims to showcase the prowess of geospatial search by providing an interactive and **visual** experience via a webpage. Users will be able to draw polygons, polylines/linestrings, and place markers/points on a map and then run geospatial searches against those values. The following actions are supported:
-- Find Airbnb locations within a polygon
-- Find Airbnb locations within a polygon with holes
-- Find Airbnb locations within a certain distance from a polygon
-- Find Airbnb locations within a certain distance from a polyline
-- Find Airbnb locations within a certain distance from a point
+Geospatial search is an incredibly powerful tool for data exploration, analysis, and visualization. This project aims to showcase the power of geospatial search by providing an interactive and ***visual*** experience via a webpage. Users will be able to draw polygons, polylines, and place markers (points) on a map to run geospatial searches against those values. The following actions are supported:
+- Find Airbnb locations within multiple polygon
+- Find Airbnb locations within multiple polygon with holes
+- Find Airbnb locations within a certain distance from a polygon, polyline, or point
 - Any combinations of the above
 
-The interactive map is powered by [Leaflet](https://leafletjs.com/), an open-source JavaScript library for mobile-friendly interactive maps. The dataset used in this project is available for public download on [Inside Airbnb](http://insideairbnb.com/get-the-data/). I recommend hosting your dataset in [Rockset](https://rockset.com/) which is optimized for low-latency queries and has a built-in `geography` data type. You will need to create an account on Rockset to get an API key for this project. This project can be completed on the Free version of Rockset. To create an account on Rockset go [here](https://rockset.com/create/).<br /><br />
+The interactive map is powered by [Leaflet](https://leafletjs.com/), an open-source JavaScript library for mobile-friendly interactive maps. The dataset used in this project is available for public download on [Inside Airbnb](http://insideairbnb.com/get-the-data/). I recommend hosting your dataset in [Rockset](https://rockset.com/) which is optimized for low-latency queries and has a built-in `geography` data type. You will need to create an account on Rockset to get an API key for this project. To create an account on Rockset go [here](https://rockset.com/create/).<br /><br />
 
 ## Step 1: Download Data
 [Inside Airbnb](http://insideairbnb.com/get-the-data/) hosts quarterly data over the last year by each region. In this example, I use the San Francisco `Detailed Listings data`. Download for free on their site. <br /><br />
@@ -116,10 +114,10 @@ Be sure to add the following parameters & default values:
 }
 ```
 
-In short, this query runs a spatial search to find Airbnb data points that are/aren't contained in denoted polygons and/or are within a certain distance from denoted shapes (could be points, lines, or polygons). It will return the **10** results at random. You can easily add additional metadata filtering in the `WHERE` clause and sorting by addin a `ORDER BY` clause.
+In short, this query runs a spatial search to find Airbnb data points that are/aren't contained in denoted polygons and/or are within a certain distance from denoted shapes (could be points, lines, or polygons). It will return the **10** results at random. You can easily add additional metadata filtering in the `WHERE` clause and sorting by addin a `ORDER BY` clause.<br /><br />
 
 ## Step 4: Create an API Key & Grab your Region
-Create an API key in Rockset in the [API Keys tab of the Console](https://console.rockset.com/apikeys). The region can be found in the dropdown menu at the top of the page. For more information, refer to [Rockset's API Reference](https://docs.rockset.com/documentation/reference/rest-api).
+Create an API key in Rockset in the [API Keys tab of the Console](https://console.rockset.com/apikeys). The region can be found in the dropdown menu at the top of the page. For more information, refer to [Rockset's API Reference](https://docs.rockset.com/documentation/reference/rest-api).<br /><br />
 
 ## Step 5: Update `geospatial-search.html`
 Before running the .html file, check the following lines & update as needed:
@@ -133,6 +131,7 @@ Before running the .html file, check the following lines & update as needed:
   If you saved the Query Lambda from Step 3 in a different workspace, update here.
 - line 284: `const qlName = 'airbnbSearch'`
   If you saved the Query Lambda from Step 3 under a different name, update here.
+<br /><br />
 
 ## Step 6: Run the .html file and start drawing shapes!
 Now we're ready to play! The tools are color-coded to denote the geographic function being used:
@@ -141,10 +140,11 @@ Now we're ready to play! The tools are color-coded to denote the geographic func
 - Blue is used for distance.
 
 Draw a Green polygon (remember to click 'Finish' to close the shape). Draw a Red polygon inside the Green polygon to denote a hole. Draw a Blue polygon, line, or place a blue marker down to signify a point of distance. Below the map, enter the distance range in meters from that shape that you wish to search for Airbnb data. Click 'Search' to view the results:
+
 <img width="1237" alt="Screenshot 2023-12-05 at 4 07 09 AM" src="https://github.com/sofia099/Geospatial-Search/assets/59860423/c1897182-9688-4553-b3c7-77ab05d8ec04">
 
 
-<br />
+<br /><br />
 
 ### Known Limitations/Bugs
 - Leaflet can be finicky when `allowIntersection` is set to `true` for polygons. Currently set to `false` for smoother user experience, but its important to note that polygon lines can **not** cross to ensure correct behavior.
