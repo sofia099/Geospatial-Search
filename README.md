@@ -146,10 +146,11 @@ Draw a Green polygon (remember to click 'Finish' to close the shape). Draw a Red
 
 <br /><br />
 
-### Known Limitations/Bugs
-- Leaflet can be finicky when `allowIntersection` is set to `true` for polygons. Currently set to `false` for smoother user experience, but its important to note that polygon lines can **not** cross to ensure correct behavior.
-- Currently only 1 blue shape can be used for a distance search.
+### Known Limitations & Bugs
+- Clicking on the first point does not close the Polyline/Polygon shape in Leaflet ([Github Issue](https://github.com/Leaflet/Leaflet.draw/issues/660))
 - When drawing a hole in a polygon, it must be drawn immediately after the outer polygon. Fix in the works.
+- Currently only 1 blue shape can be used for a distance search.
+- Leaflet can be finicky when `allowIntersection` is set to `true` for polygons. Currently set to `false` for smoother user experience, but its important to note that polygon lines can **not** cross to ensure correct behavior.
 
 ### Leaflet Documentation:
 https://leafletjs.com/reference.html
