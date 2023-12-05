@@ -164,7 +164,7 @@ https://docs.rockset.com/documentation/reference/geographic-functions#st_interse
 
 ### Interested in learning more?
 Check out this recording of a workshop I hosted on Geospatial Search: <br />
-_TBD_
+https://www.youtube.com/watch?v=Jjg2J4r4zEE
 
 Check out these slides from said workshop: <br />
 https://docs.google.com/presentation/d/12qcMZfhTJlRMe8_Cutvqua6Z95Bbx5sJGxPLjbCtUNg/edit?usp=sharing
